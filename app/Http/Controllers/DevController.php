@@ -25,7 +25,17 @@ class DevController extends Controller
 
         return null;
     }
-    public function test()
+    public function test() {}
+
+    /**
+     * Метод для получения конфигурации DummyJSON API
+     */
+    public function getDummyConfig()
     {
+        return [
+            'url' => config('dummyapi.base_url'),
+            'has_username' => !empty(config('dummyapi.username')),
+            'has_password' => !empty(config('dummyapi.password')),
+        ];
     }
 }

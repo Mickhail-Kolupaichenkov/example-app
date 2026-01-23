@@ -42,7 +42,7 @@ const form = useForm({
     max-width: 400px;
     margin: auto;
 
-    & > .b-logo {
+    &>.b-logo {
         margin: var(--s-base-margin) auto;
     }
 }
