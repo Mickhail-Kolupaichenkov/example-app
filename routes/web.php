@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
 /**
  * Проекты
  */
-Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index')->middleware('access');
 Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show')
     ->where('project', '[0-9]+');
 
