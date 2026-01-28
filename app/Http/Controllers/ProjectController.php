@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ProjectController extends Controller
 {
@@ -12,9 +13,14 @@ class ProjectController extends Controller
      *
      * GET /projects
      */
-    public function index(): string
+    public function index(): View
     {
-        return 'Список проектов';
+        $projects = [
+            ['id' => 1, 'title' => 'Проект 1', 'description' => 'Описание проекта 1'],
+            ['id' => 2, 'title' => 'Проект 2', 'description' => 'Описание проекта 2'],
+        ];
+
+        return view('pages.project.index', compact('projects'));
     }
 
     /**
@@ -22,9 +28,15 @@ class ProjectController extends Controller
      *
      * GET /projects/{project}
      */
-    public function show($project): string
+    public function show(int $project): View
     {
-        return "Проект №{$project}";
+        $project = [
+            'id' => $project,
+            'title' => "Проект {$project}",
+            'description' => "Описание проекта {$project}"
+        ];
+
+        return view('pages.project.show', compact('project'));
     }
 
     /**
@@ -32,9 +44,9 @@ class ProjectController extends Controller
      *
      * GET /projects/create
      */
-    public function create(): string
+    public function create(): View
     {
-        return 'Форма создания проекта';
+        return view('pages.project.create');
     }
 
     /**
@@ -53,9 +65,15 @@ class ProjectController extends Controller
      *
      * GET /projects/{project}/edit
      */
-    public function edit($project): string
+    public function edit($project): View
     {
-        return "Форма редактирования поста №{$project}";
+        $project = [
+            'id' => $project,
+            'title' => "Проект {$project}",
+            'description' => "Описание проекта {$project}"
+        ];
+
+        return view('pages.project.edit', compact('project'));
     }
 
     /**
