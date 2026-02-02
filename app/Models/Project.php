@@ -30,15 +30,15 @@ class Project extends Model
     ];
 
     /**
-     * Связь проекта с юзером, который его создал
+     * Владелец проекта (owner)
      */
-    public function creator(): BelongsTo
+    public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
-     * Связь проекта с отвественным за выполнение проекта
+     * Ответственный за проект (assignee)
      */
     public function assignee(): BelongsTo
     {
