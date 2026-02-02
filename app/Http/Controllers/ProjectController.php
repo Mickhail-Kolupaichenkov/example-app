@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\Project;
 
 class ProjectController extends Controller
 {
@@ -15,10 +16,7 @@ class ProjectController extends Controller
      */
     public function index(): View
     {
-        $projects = [
-            ['id' => 1, 'title' => 'Проект 1', 'description' => 'Описание проекта 1'],
-            ['id' => 2, 'title' => 'Проект 2', 'description' => 'Описание проекта 2'],
-        ];
+        $projects = Project::all();
 
         return view('pages.project.index', compact('projects'));
     }
@@ -30,11 +28,7 @@ class ProjectController extends Controller
      */
     public function show(int $project): View
     {
-        $project = [
-            'id' => $project,
-            'title' => "Проект {$project}",
-            'description' => "Описание проекта {$project}"
-        ];
+        $project = Project::findOrFail($project);
 
         return view('pages.project.show', compact('project'));
     }
@@ -65,13 +59,9 @@ class ProjectController extends Controller
      *
      * GET /projects/{project}/edit
      */
-    public function edit($project): View
+    public function edit(int $project): View
     {
-        $project = [
-            'id' => $project,
-            'title' => "Проект {$project}",
-            'description' => "Описание проекта {$project}"
-        ];
+        $project = Project::findOrFail($project);
 
         return view('pages.project.edit', compact('project'));
     }
@@ -92,8 +82,10 @@ class ProjectController extends Controller
      *
      * DELETE /projects/{project}
      */
-    public function destroy($project): RedirectResponse
+    public function destroy(int $project): RedirectResponse
     {
+        $project = Project::findOrFail($project);
+        $project->delete();
         //Удалили проект и редиректим
         return redirect()->route('projects.index');
     }

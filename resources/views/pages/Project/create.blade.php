@@ -18,5 +18,6 @@
 
         <button type="submit">Создать проект</button>
     </form>
+    <br>
     <x-alert type="success" title="Успех" message="Операция выполнена" />
 @endsection
