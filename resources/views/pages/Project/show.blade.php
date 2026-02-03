@@ -6,10 +6,17 @@
     <h3>{{ $project->project_name }}</h3>
     <hr>
     <a href="{{ route('projects.index') }}">Назад к списку</a> |
-    <a href="{{ route('projects.edit', $project->id) }}">Редактировать</a>
+    <a href="{{ route('projects.edit', $project->id) }}">Редактировать</a> |
+
+    <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" onclick="return confirm('Удалить проект?')">Удалить</button>
+    </form>
+
     <hr>
 
-    <p><strong>ID проекта:</strong> {{ $project->id }}</p>
+    <p><strong>ID:</strong> {{ $project->id }}</p>
     <p><strong>Название:</strong> {{ $project->project_name }}</p>
     <p><strong>Статус:</strong>
         @if ($project->status_active)
@@ -18,8 +25,8 @@
             Неактивен
         @endif
     </p>
-    <p><strong>ID создателя:</strong> {{ $project->user_id }}</p>
-    <p><strong>ID ответственного:</strong>
+    <p><strong>Создатель ID:</strong> {{ $project->user_id }}</p>
+    <p><strong>Ответственный ID:</strong>
         @if ($project->assignee_id)
             {{ $project->assignee_id }}
         @else

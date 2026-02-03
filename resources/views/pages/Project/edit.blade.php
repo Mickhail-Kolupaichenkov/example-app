@@ -9,20 +9,30 @@
     <a href="{{ route('projects.show', $project->id) }}">Назад к проекту</a>
     <hr>
 
-    <form action="">
+    @if ($errors->any())
+        <div style="color: red; margin-bottom: 15px;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('projects.update', $project->id) }}" method="POST">
         @csrf
-        <label for="title">Название проекта:</label>
-        <input name="title" type="text" value="{{ $project->project_name }}" /><br />
+        @method('PUT')
 
-        <label>
-            <input type="checkbox" name="status_active" value="1" {{ $project->status_active ? 'checked' : '' }}>
-            Проект активен
-        </label><br />
+        <button type="submit">Обновить</button>
 
-        <label for="deadline_date">Дедлайн выполнения:</label>
-        <input type="date" name="deadline_date" id="deadline_date"
-            value="{{ old('deadline_date', $project->deadline_date?->format('Y-m-d')) }}"><br />
+        <button type="button" onclick="if(confirm('Удалить проект?')) { document.getElementById('delete-form').submit(); }"
+            style="background: red; color: white; margin-left: 10px;">
+            Удалить проект
+        </button>
+    </form>
 
-        <button type="submit">Обновить данные проекта</button>
+    <form id="delete-form" action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
     </form>
 @endsection

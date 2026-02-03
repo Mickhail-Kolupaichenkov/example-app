@@ -6,6 +6,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Project;
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -48,8 +50,12 @@ class ProjectController extends Controller
      *
      * POST /projects
      */
-    public function store(): RedirectResponse
+    public function store(StoreProjectRequest $request): RedirectResponse
     {
+        $validated = $request->validated();
+
+        Project::create($validated);
+
         //Создаем проект и редиректим
         return redirect()->route('projects.index');
     }
@@ -71,8 +77,14 @@ class ProjectController extends Controller
      *
      * PUT /projects/{project}
      */
-    public function update($project): RedirectResponse
+    public function update(UpdateProjectRequest $request, int $project): RedirectResponse
     {
+        $project = Project::findOrFail($project);
+
+        $validated = $request->validated();
+
+        $project->update($validated);
+
         //Обновили проект и редиректим
         return redirect()->route('projects.show', $project);
     }
