@@ -35,14 +35,6 @@
         </div>
 
         <div style="margin-bottom: 10px;">
-            <label for="user_id">ID создателя:*</label><br>
-            <input type="number" name="user_id" id="user_id" value="{{ old('user_id') }}" required>
-            @error('user_id')
-                <div style="color: red;">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div style="margin-bottom: 10px;">
             <label for="assignee_id">ID ответственного:</label><br>
             <input type="number" name="assignee_id" id="assignee_id" value="{{ old('assignee_id') }}">
             @error('assignee_id')

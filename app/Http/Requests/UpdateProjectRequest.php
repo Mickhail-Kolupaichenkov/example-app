@@ -29,7 +29,7 @@ class UpdateProjectRequest extends FormRequest
             'project_name' => 'required|string|max:100',
             'status_active' => 'boolean',
             'assignee_id' => 'nullable|exists:users,id',
-            'deadline_date' => 'required|date',
+            'deadline_date' => 'nullable|date',
         ];
     }
 

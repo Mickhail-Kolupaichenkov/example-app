@@ -9,23 +9,28 @@
     @if ($projects->count() > 0)
         <ul>
             @foreach ($projects as $project)
-                <li>
+                <li style="margin-bottom: 8px;">
                     <a href="{{ route('projects.show', $project->id) }}">
                         {{ $project->project_name }}
                     </a>
-                    -
-                    @if ($project->status_active)
-                        Активен
-                    @else
-                        Неактивен
-                    @endif
 
-                    <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            onclick="return confirm('Удалить проект {{ $project->project_name }}?')">X</button>
-                    </form>
+                    <small>
+                        (Создатель: {{ $project->user_id }})
+                        @can('update', $project)
+                            <a href="{{ route('projects.edit', $project->id) }}">[Редактировать]</a>
+                        @endcan
+
+                        @can('delete', $project)
+                            <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Удалить?')"
+                                    style="border: none; background: none; color: red; cursor: pointer;">
+                                    [X]
+                                </button>
+                            </form>
+                        @endcan
+                    </small>
                 </li>
             @endforeach
         </ul>

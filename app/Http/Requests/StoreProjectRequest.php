@@ -28,7 +28,6 @@ class StoreProjectRequest extends FormRequest
         return [
             'project_name' => 'required|string|max:100',
             'status_active' => 'boolean',
-            'user_id' => 'required|exists:users,id',
             'assignee_id' => 'nullable|exists:users,id',
             'deadline_date' => 'required|date',
         ];
@@ -42,8 +41,6 @@ class StoreProjectRequest extends FormRequest
         return [
             'project_name.required' => 'Название проекта обязательно для заполнения',
             'project_name.max' => 'Название проекта не должно превышать 100 символов',
-            'user_id.required' => 'Необходимо указать создателя проекта',
-            'user_id.exists' => 'Указанный создатель не существует',
             'assignee_id.exists' => 'Указанный ответственный не существует',
             'deadline_date.date' => 'Дедлайн должен быть датой',
         ];
@@ -56,7 +53,6 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'project_name' => 'название проекта',
-            'user_id' => 'создатель',
             'assignee_id' => 'ответственный',
             'deadline_date' => 'дедлайн',
         ];

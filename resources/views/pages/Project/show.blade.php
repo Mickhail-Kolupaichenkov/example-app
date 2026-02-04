@@ -5,15 +5,20 @@
 @section('content')
     <h3>{{ $project->project_name }}</h3>
     <hr>
-    <a href="{{ route('projects.index') }}">Назад к списку</a> |
-    <a href="{{ route('projects.edit', $project->id) }}">Редактировать</a> |
+    <a href="{{ route('projects.index') }}">Назад к списку</a>
 
-    <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
-        @csrf
-        @method('DELETE')
-        <button type="submit" onclick="return confirm('Удалить проект?')">Удалить</button>
-    </form>
+    @can('update', $project)
+        | <a href="{{ route('projects.edit', $project->id) }}">Редактировать</a>
+    @endcan
 
+    @can('delete', $project)
+        |
+        <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" onclick="return confirm('Удалить проект?')">Удалить</button>
+        </form>
+    @endcan
     <hr>
 
     <p><strong>ID:</strong> {{ $project->id }}</p>
