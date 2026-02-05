@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Faker\Factory as Faker;
+
 
 class DevController extends Controller
 {
@@ -96,5 +98,46 @@ class DevController extends Controller
         ]);
         
         return 'Рандомный проект обновлен';
+    }
+
+    /**
+     * Получает три последних проекта авторизованного и не авторизованного пользователя
+     */
+    public function getMyLatestThree(Request $request)
+    {
+        $query = Project::query();
+        
+        // Если пользователь авторизован, берем его проекты
+        if (Auth::check()) {
+            $query->where('user_id', Auth::id());
+        }
+        
+        $projects = $query->latest('created_at')
+            ->limit(3)
+            ->get();
+        
+        return $projects;
+    }
+
+    /**
+     * Получаем список пользователей и кол-во проектов у каждого
+     */
+    public function usersProjects(Request $request)
+    {
+        $users = User::withCount('ownedProjects')
+            ->orderBy('owned_projects_count', 'desc')
+            ->get(['username', 'owned_projects_count']);
+        
+        return $users;
+    }
+
+    /**
+     * Получаем кол-во проектов с истекшим дедлайном
+     */
+    public function getExpiredProjectsCount(Request $request)
+    {
+        $count = Project::where('deadline_date', '<', now())->count();
+        
+        return $count;
     }
 }

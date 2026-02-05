@@ -44,4 +44,12 @@ class Project extends Model
     {
         return $this->belongsTo(User::class, 'assignee_id');
     }
+
+    /**
+    * Запрос с условием дедлайн проектов, который истек
+    */
+    public function scopeExpired($query)
+    {
+        return $query->where('deadline_date', '<', now());
+    }
 }
