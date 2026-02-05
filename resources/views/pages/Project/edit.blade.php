@@ -1,4 +1,4 @@
-@extends('pages.project.layout')
+@extends('pages.Project.layout')
 
 @section('title', "Редактировать {$project->project_name}")
 

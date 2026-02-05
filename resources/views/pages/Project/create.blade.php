@@ -1,4 +1,4 @@
-@extends('pages.project.layout')
+@extends('pages.Project.layout')
 
 @section('content')
     <h3>Создание нового проекта</h3>

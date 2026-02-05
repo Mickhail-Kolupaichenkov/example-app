@@ -1,4 +1,4 @@
-@extends('pages.project.layout')
+@extends('pages.Project.layout')
 
 @section('content')
     <h3>Список проектов:</h3>

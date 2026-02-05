@@ -23,7 +23,7 @@ class ProjectController extends Controller
 
         $projects = Project::all();
 
-        return view('pages.project.index', compact('projects'));
+        return view('pages.Project.index', compact('projects'));
     }
 
     /**
@@ -37,7 +37,7 @@ class ProjectController extends Controller
 
         Gate::authorize('view', $project);
 
-        return view('pages.project.show', compact('project'));
+        return view('pages.Project.show', compact('project'));
     }
 
     /**
@@ -49,7 +49,7 @@ class ProjectController extends Controller
     {
         Gate::authorize('create', Project::class);
 
-        return view('pages.project.create');
+        return view('pages.Project.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class ProjectController extends Controller
 
         Gate::authorize('update', $project);
 
-        return view('pages.project.edit', compact('project'));
+        return view('pages.Project.edit', compact('project'));
     }
 
     /**
