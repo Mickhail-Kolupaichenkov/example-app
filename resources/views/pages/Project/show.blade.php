@@ -16,7 +16,8 @@
         <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline;">
             @csrf
             @method('DELETE')
-            <button type="submit" onclick="return confirm('Удалить проект?')">Удалить</button>
+            <button type="submit" onclick="return confirm('Удалить проект?')"
+                style="background: red; color: white; margin-left: 10px;">Удалить</button>
         </form>
     @endcan
     <hr>
